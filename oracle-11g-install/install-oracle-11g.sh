@@ -10,7 +10,7 @@ sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selin
 service iptables stop
 chkconfig iptables off
 #Create oracle directories
-mkdir -p /u01/app/oracle/product/11.2.0/db_1
-chown -R oracle:oinstall /u01
-chmod -R 775 /u01
+sudo mkdir -p /u01/app/oracle/product/11.2.0/db_1
+sudo chown -R oracle:oinstall /u01
+sudo chmod -R 775 /u01
 #Need to dig out Oracle 11g response files in order to do a silent install
