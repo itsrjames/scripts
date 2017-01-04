@@ -9,7 +9,7 @@ oracle.install.responseFileVersion=/oracle/install/rspfmt_dbinstall_response_sch
 # 2. INSTALL_DB_AND_CONFIG
 # 3. UPGRADE_DB
 #-------------------------------------------------------------------------------
-oracle.install.option=INSTALL_DB_AND_CONFIG
+oracle.install.option=REPLACE-01
 
 #-------------------------------------------------------------------------------
 # This variable holds the hostname of the system as set by the user. 
@@ -17,7 +17,7 @@ oracle.install.option=INSTALL_DB_AND_CONFIG
 # hostname rather than using the first hostname found on the system
 # (e.g., for systems with multiple hostnames and network interfaces).
 #-------------------------------------------------------------------------------
-ORACLE_HOSTNAME=localhost
+ORACLE_HOSTNAME=REPLACE-02
 
 #-------------------------------------------------------------------------------
 # Unix group to be set for the inventory directory.  
@@ -134,12 +134,12 @@ oracle.install.db.config.starterdb.type=GENERAL_PURPOSE
 #-------------------------------------------------------------------------------
 # Global Database Name 
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.globalDBName=orcl
+oracle.install.db.config.starterdb.globalDBName=REPLACE-03
 
 #-------------------------------------------------------------------------------
 # The Starter Database SID 
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.SID=orcl
+oracle.install.db.config.starterdb.SID=REPLACE-04
 
 #-------------------------------------------------------------------------------
 # Database character set
@@ -153,7 +153,7 @@ oracle.install.db.config.starterdb.SID=orcl
 #  KO16MSWIN949, ZHS16GBK, TH8TISASCII, ZHT32EUC, ZHT16MSWIN950,
 #  ZHT16HKSCS, WE8ISO8859P9, TR8MSWIN1254, VN8MSWIN1258
 #-------------------------------------------------------------------------------
-oracle.install.db.config.starterdb.characterSet=AL32UTF8
+oracle.install.db.config.starterdb.characterSet=REPLACE-05
 #-------------------------------------------------------------------------------
 # Specify the total memory allocation for the database. (in MB)
 # Value should be at least 256 MB, and should not exceed the  
