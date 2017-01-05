@@ -4,4 +4,4 @@ MYHOSTNAME=$(hostname)
 echo $MYIP
 echo $MYHOSTNAME
 RESULT=`echo -e $MYIP"\t"$MYHOSTNAME`
-echo "$RESULT"
+echo "$RESULT" >> /etc/hosts
