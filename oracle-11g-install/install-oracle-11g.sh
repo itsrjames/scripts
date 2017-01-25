@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Script Variables
+SOFTDIR=/mnt/hgfs/Downloads
+#
+sudo chown -R rjames:rjames $SOFTDIR/oracle11g-installer
 # Prepare Silent Install Response File
 #
 # SEARCH1=oracle.install.option
@@ -21,7 +26,7 @@ REPLACE2=mbpro-vm-ora.lan
 REPLACE3=orcl
 REPLACE4=orcl
 REPLACE5=AL32UTF8
-cp /mnt/hgfs/Downloads/oracle11g-silent-install.rsp /home/oracle
+cp $SOFTDIR/oracle11g-installer/oracle11g-silent-install.rsp /home/oracle
 cp /home/oracle/oracle11g-silent-install.rsp /home/oracle/oracle11g-silent-install-run.rsp
 cat /home/oracle/oracle11g-silent-install-run.rsp | sed -e "s/$SEARCH1/$REPLACE1/" >> /home/oracle/oracle11g-silent-install-run.rsp
 cat /home/oracle/oracle11g-silent-install-run.rsp | sed -e "s/$SEARCH2/$REPLACE2/" >> /home/oracle/oracle11g-silent-install-run.rsp
@@ -29,19 +34,25 @@ cat /home/oracle/oracle11g-silent-install-run.rsp | sed -e "s/$SEARCH3/$REPLACE3
 cat /home/oracle/oracle11g-silent-install-run.rsp | sed -e "s/$SEARCH4/$REPLACE4/" >> /home/oracle/oracle11g-silent-install-run.rsp
 cat /home/oracle/oracle11g-silent-install-run.rsp | sed -e "s/$SEARCH5/$REPLACE5/" >> /home/oracle/oracle11g-silent-install-run.rsp
 #
-# Unzip Installation Software
+# Copy and Unzip Installation Software
+cp $SOFTDIR/linux.x64_11gR2_database_*.zip /home/oracle
 unzip linux.x64_11gR2_database_1of2.zip
 unzip linux.x64_11gR2_database_2of2.zip
-#Need to have a fully qualified host in /etc/hosts
-yum -y install oracle-rdbms-server-11gR2-preinstall
+# Install Oracle 11g Pre-reqs Package
+sudo yum -y install oracle-rdbms-server-11gR2-preinstall
 echo "oracle" | passwd --stdin oracle
 #Disable selinux
-sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux && cat /etc/sysconfig/selinux
+sudo sed -i --follow-symlinks 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux && cat /etc/sysconfig/selinux
 #Disable firewall
-service iptables stop
-chkconfig iptables off
+sudo service iptables stop
+sudo chkconfig iptables off
 #Create oracle directories
 sudo mkdir -p /u01/app/oracle/product/11.2.0/db_1
 sudo chown -R oracle:oinstall /u01
 sudo chmod -R 775 /u01
-#Need to dig out Oracle 11g response files in order to do a silent install
+#Set Ownership on Installation Software to oracle user
+sudo chown -R oracle:oinstall /home/oracle/database
+sudo chown oracle:oinstall $SOFTDIR/oracle11g-installer/*.rsp
+#Kick off Oracle silent install
+/home/oracle/runInstaller -ignoreSysPrereqs -showProgress -silent -responseFile /home/oracle/oracle11g-silent-install-run.rsp
+
